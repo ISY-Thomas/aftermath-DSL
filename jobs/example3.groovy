@@ -18,7 +18,7 @@ folder(basePath) {
         steps {
             shell 'make clean'
             shell 'make'
-
+        }
     }
 
     job("$basePath/pico-units") {
