@@ -13,7 +13,7 @@ job("$basePath/pico-example-build") {
     description(job_descr)
     label(slave)
     scm {
-        github repo branch
+        github(repo,branch)
     }
     triggers {
         scm 'H/5 * * * *'
