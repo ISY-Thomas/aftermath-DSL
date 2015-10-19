@@ -49,4 +49,3 @@ branches.each { branch ->
     }
 }
 }
-}
