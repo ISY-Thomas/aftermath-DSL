@@ -1,5 +1,4 @@
 String basePath = 'example3'
-import groovy.json.JsonSlurper
 String repo = 'tass-belgium/picotcp'
 String slave = 'normal'
 String job1_descr = 'Perform a PicoTCP build'
@@ -7,18 +6,10 @@ String job2_descr = 'Run unit tests and make on PicoTCP'
 String job3_descr = 'Run autotests and make on PicoTCP'
 
 folder(basePath) {
-    description 'This example shows how to create a set of jobs for each github branch, each in its own folder. With a buildflow job to control it.'
+    description 'This example shows how to create a job in its own folder. With a buildflow job to control it. And the exclusion plugin.'
 }
 
-URL branchUrl = "https://api.github.com/repos/$repo/branches".toURL()
-List branches = new JsonSlurper().parse(branchUrl.newReader())
-branches.each { branch ->
-
-    String safeBranchName = branch.name.replaceAll('/', '-')
-
-    folder "$basePath/$safeBranchName"
-
-    job("$basePath/$safeBranchName/pico-build") {
+    job("$basePath/pico-build") {
         description(job1_descr)
         label(slave)
         scm {
@@ -30,7 +21,7 @@ branches.each { branch ->
 
     }
 
-    job("$basePath/$safeBranchName/pico-units") {
+    job("$basePath/pico-units") {
         description(job2_descr)
         label(slave)
         scm {
@@ -48,7 +39,7 @@ branches.each { branch ->
         }
     }
 
-    job("$basePath/$safeBranchName/pico-autotest") {
+    job("$basePath/pico-autotest") {
         description(job3_descr)
         label(slave)
         scm {
@@ -66,14 +57,16 @@ branches.each { branch ->
         }
     }
 
-    buildFlowJob("$basePath/$safeBranchName/pico-buildflow") {
+    buildFlowJob("$basePath/pico-buildflow") {
     triggers {
         scm 'H/5 * * * *'
     }
     buildFlow("""
     build("pico-build")
-    build("pico-units")
+    parallel(
+      build("pico-units")
+      build("pico-autotest")
+    )
     """)
     }
-}
 }
