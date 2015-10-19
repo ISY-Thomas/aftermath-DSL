@@ -6,9 +6,6 @@ folder(basePath) {
 }
 
 job("$basePath/pico-example-build") {
-    description{
-
-    }
     scm {
         github repo
     }
