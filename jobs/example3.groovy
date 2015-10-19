@@ -41,11 +41,11 @@ branches.each { branch ->
         }
     }
 
-    buildFlowJob("$basePath/pico-buildflow") {
-    buildFlow('''
-          build($basePath/$safeBranchName/"pico-build")
-          build($basePath/$safeBranchName/"pico-units")
-    ''')
+    buildFlowJob("$basePath/$safeBranchName/pico-buildflow") {
+    buildFlow("""
+    build(pico-build)
+    build(pico-units)
+    """)
     }
 }
 }
