@@ -24,6 +24,6 @@ buildMonitorView('PicoTCP'){
   description("Build monitor for all the pico test job.")
   jobs{
     name("pico-builds")
-    regex(*pico*)
+    regex("*pico*")
   }
 }
