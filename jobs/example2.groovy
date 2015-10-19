@@ -1,4 +1,4 @@
-String basePath = 'example1'
+String basePath = 'example2'
 String repo = 'tass-belgium/picotcp'
 String branch = 'development'
 String slave = 'normal'
