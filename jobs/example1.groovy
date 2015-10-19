@@ -10,7 +10,11 @@ folder(basePath) {
 
 job("$basePath/pico-example-build") {
     description(job_descr)
-    restrictToLabel(slave)
+    triggers {
+        urlTrigger {
+            restrictToLabel(slave)
+        }
+    }
     scm {
         github repo
     }
