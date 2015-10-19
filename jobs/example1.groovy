@@ -15,9 +15,6 @@ job("$basePath/pico-example-build") {
     scm {
         github(repo,branch)
     }
-    triggers {
-        scm 'H/5 * * * *'
-    }
     steps {
         shell 'make clean'
         shell 'make'
