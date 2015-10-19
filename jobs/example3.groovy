@@ -65,8 +65,8 @@ triggers {
 buildFlow("""
 build("pico-build")
 parallel(
-  build("pico-units")
-  build("pico-autotest")
+  {build("pico-units")},
+  {build("pico-autotest")}
 )
 """)
 }
