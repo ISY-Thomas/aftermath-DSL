@@ -7,7 +7,7 @@ folder(basePath) {
 
 job("$basePath/pico-example-build") {
     description 'First example of a PicoTCP build'
-    restrictToLabel 'normal'
+    restrictToLabel('normal')
     scm {
         github repo
     }
