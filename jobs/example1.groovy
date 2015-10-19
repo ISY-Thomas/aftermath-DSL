@@ -7,11 +7,12 @@ folder(basePath) {
 
 job("$basePath/pico-example-build") {
     description 'First example of a PicoTCP build'
+    restrictToLabel 'normal'
     scm {
         github repo
     }
     triggers {
-        scm 'H/5 * * * *'l
+        scm 'H/5 * * * *'
     }
     steps {
         shell 'make clean'
