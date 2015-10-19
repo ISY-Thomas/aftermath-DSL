@@ -1,12 +1,12 @@
+String basePath = 'example3'
 import groovy.json.JsonSlurper
 String repo = 'tass-belgium/picotcp'
 String slave = 'normal'
 String job1_descr = 'Perform a PicoTCP build'
-String job2_descr = 'Run unit tests on PicoTCP'
-String basePath = 'example4'
+String job2_descr = 'Run unit tests and make on PicoTCP'
 
 folder(basePath) {
-    description 'This example shows how to create a set of jobs for each github branch, each in its own folder.'
+    description 'This example shows how to create a set of jobs for each github branch, each in its own folder. With a buildflow job to control it.'
 }
 
 URL branchUrl = "https://api.github.com/repos/$repo/branches".toURL()
@@ -39,6 +39,16 @@ branches.each { branch ->
             shell 'make clean'
             shell 'make units ARCH=faulty'
         }
+    }
+
+    buildFlowJob("$basePath/$safeBranchName/pico-buildflow") {
+    triggers {
+        scm 'H/5 * * * *'
+    }
+    buildFlow("""
+    build("pico-build")
+    build("pico-units")
+    """)
     }
 }
 }

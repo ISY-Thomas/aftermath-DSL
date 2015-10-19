@@ -2,7 +2,7 @@ String basePath = 'example2'
 String repo = 'tass-belgium/picotcp'
 String branch = 'development'
 String slave = 'normal'
-String fold_descr =  'This example shows basic folder/job creation.'
+String fold_descr =  'Folder containing PicoTCP job generated from shell script.'
 String job_descr = 'Running units and autotest on PicoTCP.'
 
 folder(basePath) {
@@ -21,7 +21,7 @@ job("$basePath/pico-example-tests") {
 }
 
 buildMonitorView('PicoTCP'){
-  description("Build monitor for all the pico test job.")
+  description("Build monitor for all the pico test jobs.")
   jobs{
     name("pico-builds")
     recurse()

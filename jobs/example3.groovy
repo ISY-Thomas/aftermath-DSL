@@ -3,7 +3,8 @@ import groovy.json.JsonSlurper
 String repo = 'tass-belgium/picotcp'
 String slave = 'normal'
 String job1_descr = 'Perform a PicoTCP build'
-String job2_descr = 'Run unit tests on PicoTCP'
+String job2_descr = 'Run unit tests and make on PicoTCP'
+String job3_descr = 'Run autotests and make on PicoTCP'
 
 folder(basePath) {
     description 'This example shows how to create a set of jobs for each github branch, each in its own folder. With a buildflow job to control it.'
@@ -35,13 +36,40 @@ branches.each { branch ->
         scm {
             github repo, branch.name
         }
+        wrappers{
+            exclusionResources('test')
+        }
         steps {
             shell 'make clean'
             shell 'make units ARCH=faulty'
+            criticalBlock{
+                shell 'test/units.sh'
+            }
+        }
+    }
+
+    job("$basePath/$safeBranchName/pico-autotest") {
+        description(job3_descr)
+        label(slave)
+        scm {
+            github repo, branch.name
+        }
+        wrappers{
+            exclusionResources('test')
+        }
+        steps {
+            shell 'make clean'
+            shell 'make make test'
+            criticalBlock{
+                shell './test/autotest.sh'
+            }
         }
     }
 
     buildFlowJob("$basePath/$safeBranchName/pico-buildflow") {
+    triggers {
+        scm 'H/5 * * * *'
+    }
     buildFlow("""
     build("pico-build")
     build("pico-units")
