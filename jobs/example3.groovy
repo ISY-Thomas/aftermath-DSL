@@ -51,7 +51,7 @@ job("$basePath/pico-autotest") {
     }
     steps {
         shell 'make clean'
-        shell 'make make test'
+        shell 'make test'
         criticalBlock{
             shell './test/autotest.sh'
         }

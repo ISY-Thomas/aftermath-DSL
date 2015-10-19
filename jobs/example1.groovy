@@ -1,6 +1,7 @@
 String basePath = 'example1'
 String repo = 'tass-belgium/picotcp'
 String slave = 'normal'
+String branch = 'development'
 String fold_descr =  'This example shows basic folder/job creation.'
 String job_descr = 'First example of a PicoTCP build'
 
@@ -12,7 +13,7 @@ job("$basePath/pico-example-build") {
     description(job_descr)
     label(slave)
     scm {
-        github repo
+        github(repo,branch)
     }
     triggers {
         scm 'H/5 * * * *'
