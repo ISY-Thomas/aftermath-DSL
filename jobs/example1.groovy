@@ -10,7 +10,7 @@ folder(basePath) {
 
 job("$basePath/pico-example-build") {
     description(job_descr)
-    nodelabel(slave)
+    label(slave)
     scm {
         github repo
     }
