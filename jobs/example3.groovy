@@ -69,4 +69,3 @@ folder(basePath) {
     )
     """)
     }
-}
