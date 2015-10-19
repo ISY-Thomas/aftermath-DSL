@@ -1,14 +1,16 @@
 String basePath = 'example1'
 String repo = 'tass-belgium/picotcp'
 String slave = 'normal'
+String fold_descr =  'This example shows basic folder/job creation.'
+String job_descr = 'First example of a PicoTCP build'
 
 folder(basePath) {
-    description 'This example shows basic folder/job creation.'
+    description(fold_descr)
 }
 
 job("$basePath/pico-example-build") {
-    description 'First example of a PicoTCP build'
-    restrictToLabel slave
+    description(job_descr)
+    restrictToLabel(slave)
     scm {
         github repo
     }
