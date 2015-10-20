@@ -1,4 +1,4 @@
-String basePath = 'example3'
+String basePath = 'example4'
 import groovy.json.JsonSlurper
 String repo = 'tass-belgium/picotcp'
 String slave = 'normal'
